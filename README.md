@@ -118,7 +118,7 @@ Re-implementing from scratch (after watching the lecture, but without referring 
 ## How to run
 
 ```bash
-git clone https://github.com/yourusername/micrograd-scratch
+git https://github.com/C-Yares/micrograd_reproduction.git
 cd micrograd-scratch
 pip install torch numpy
 python tests/test_engine.py    # PyTorch verification
