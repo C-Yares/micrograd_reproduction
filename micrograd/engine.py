@@ -3,7 +3,7 @@ class Value:
     def __init__(self, data, _prev = set(), _op = ''):
         self.data = data
         self.grad = 0.0
-        self._prev = _prev
+        self._prev = set(_prev)
         self._op = _op
         self._backward = lambda: None
     def __repr__(self):
@@ -46,17 +46,17 @@ class Value:
         assert isinstance(n, (int, float)), "only supporting scalar exponents"
         out = Value(self.data ** n, _prev=set({self}), _op=f"**{n}")
         def _backward():
-            self.grad = (n*self.data ** (n-1)) * out.grad
+            self.grad += (n*self.data ** (n-1)) * out.grad
         out._backward = _backward
         return out
     def __radd__(self, other):
-        self + other
+        return self + other
     def __sub__(self, other):
-        self + (-other)
+        return self + (-other)
     def __rsub__(self, other):
-        other + (-self)
+        return other + (-self)
     def __neg__(self):
-        self * -1
+        return self * -1
     def __rmul__(self, other): # other * self
         return self * other
     def __truediv__(self, other): # self / other
